@@ -743,3 +743,69 @@
   background: rgba(var(--a11y-primary-rgb),0.2);
   animation: a11yPulse 2s ease-in-out infinite;
 }
+
+/* ══════════════════════════════════════════════
+   Responsive
+   ══════════════════════════════════════════════ */
+
+/* Mobile: panel centrado full-width */
+@media (max-width: 479px) {
+  .fpvsi-a11y__panel-wrap {
+    position: fixed !important;
+    left: 8px !important;
+    right: 8px !important;
+    bottom: auto !important;
+    top: auto !important;
+  }
+  /* Bottom positions → panel arriba del trigger */
+  .fpvsi-a11y--bottom-left .fpvsi-a11y__panel-wrap,
+  .fpvsi-a11y--bottom-right .fpvsi-a11y__panel-wrap {
+    bottom: 72px !important;
+    top: auto !important;
+  }
+  /* Top positions → panel debajo del trigger */
+  .fpvsi-a11y--top-left .fpvsi-a11y__panel-wrap,
+  .fpvsi-a11y--top-right .fpvsi-a11y__panel-wrap {
+    top: 72px !important;
+    bottom: auto !important;
+  }
+  .fpvsi-a11y__panel {
+    width: 100% !important;
+    max-height: calc(100vh - 140px);
+    border-radius: 16px;
+  }
+  .fpvsi-a11y__row {
+    padding: 10px 12px;
+    border-radius: 12px;
+  }
+  .fpvsi-a11y__row-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 10px;
+  }
+  .fpvsi-a11y__row-icon svg {
+    width: 14px;
+    height: 14px;
+  }
+  .fpvsi-a11y__row-left {
+    gap: 10px;
+  }
+  .fpvsi-a11y__row-label {
+    font-size: 13px;
+  }
+  .fpvsi-a11y__header {
+    padding: 14px 16px;
+  }
+  .fpvsi-a11y__body {
+    padding: 8px;
+    gap: 4px;
+  }
+  .fpvsi-a11y__trigger {
+    width: 44px;
+    height: 44px;
+  }
+  .fpvsi-a11y__trigger svg {
+    width: 18px;
+    height: 18px;
+  }
+}
