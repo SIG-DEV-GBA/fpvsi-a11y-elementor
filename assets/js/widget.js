@@ -299,15 +299,14 @@
     r.style.setProperty('--a11y-accent', derived.accent);
     r.style.setProperty('--a11y-primary-rgb', derived.primaryRgb);
     r.style.setProperty('--a11y-accent-rgb', derived.accentRgb);
-    // Text & hover colors (optional overrides)
-    r.style.setProperty('--a11y-text', colors.text || derived.primary);
+    // Active row colors (only set when user customizes, CSS uses fallbacks otherwise)
+    if (colors.text) {
+      r.style.setProperty('--a11y-text', colors.text);
+    }
     if (colors.hoverBg) {
+      r.style.setProperty('--a11y-active-bg', colors.hoverBg);
       var hbRgb = hexToRgb(colors.hoverBg);
-      r.style.setProperty('--a11y-hover-bg', colors.hoverBg);
-      r.style.setProperty('--a11y-hover-bg-rgb', hbRgb[0] + ', ' + hbRgb[1] + ', ' + hbRgb[2]);
-    } else {
-      r.style.setProperty('--a11y-hover-bg', derived.primary);
-      r.style.setProperty('--a11y-hover-bg-rgb', derived.primaryRgb);
+      r.style.setProperty('--a11y-active-bg-rgb', hbRgb[0] + ', ' + hbRgb[1] + ', ' + hbRgb[2]);
     }
 
     // ── State ──
@@ -972,7 +971,7 @@
     if (existing) existing.remove();
     // Reset CSS vars
     var r = document.documentElement;
-    ['--a11y-primary','--a11y-primary-dark','--a11y-primary-darker','--a11y-primary-light','--a11y-accent','--a11y-primary-rgb','--a11y-accent-rgb','--a11y-text','--a11y-hover-bg','--a11y-hover-bg-rgb'].forEach(function(v){
+    ['--a11y-primary','--a11y-primary-dark','--a11y-primary-darker','--a11y-primary-light','--a11y-accent','--a11y-primary-rgb','--a11y-accent-rgb','--a11y-text','--a11y-active-bg','--a11y-active-bg-rgb'].forEach(function(v){
       r.style.removeProperty(v);
     });
   }

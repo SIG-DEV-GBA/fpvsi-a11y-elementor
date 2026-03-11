@@ -30,6 +30,10 @@ class Fpvsi_A11y_Elementor_Widget extends \Elementor\Widget_Base {
         return [ 'accessibility', 'a11y', 'accesibilidad', 'widget' ];
     }
 
+    public function get_script_depends() {
+        return [ 'fpvsi-a11y-el', 'fpvsi-a11y-el-handler' ];
+    }
+
     protected function register_controls() {
 
         /* ── Apariencia ── */
@@ -50,18 +54,18 @@ class Fpvsi_A11y_Elementor_Widget extends \Elementor\Widget_Base {
             'default' => '#F29429',
         ]);
 
-        $this->add_control( 'text_color', [
-            'label'       => 'Color texto activo',
+        $this->add_control( 'hover_bg_color', [
+            'label'       => 'Fondo filas activas',
             'type'        => \Elementor\Controls_Manager::COLOR,
             'default'     => '',
-            'description' => 'Color del texto cuando una opción está activa. Si está vacío, usa el color primario.',
+            'description' => 'Color de fondo sólido para opciones activadas. Ej: un azul claro (#dbeafe) o gris (#f3f4f6). Vacío = tinte suave del primario.',
         ]);
 
-        $this->add_control( 'hover_bg_color', [
-            'label'       => 'Color fondo hover/activo',
+        $this->add_control( 'text_color', [
+            'label'       => 'Texto filas activas',
             'type'        => \Elementor\Controls_Manager::COLOR,
             'default'     => '',
-            'description' => 'Color de fondo para filas activas. Si está vacío, usa el color primario.',
+            'description' => 'Color del texto e iconos en opciones activadas. Debe ser legible sobre el fondo activo. Vacío = color primario.',
         ]);
 
         $this->add_control( 'position', [
@@ -326,7 +330,7 @@ class Fpvsi_A11y_Elementor_Widget extends \Elementor\Widget_Base {
         $json = wp_json_encode( $config, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
 
         if ( $is_editor ) {
-            // Editor: indicador visual + init real para preview en vivo
+            // Editor: indicador visual
             echo '<div style="padding:12px 16px;background:#f9f5ff;border:2px solid ' . esc_attr( $config['colors']['primary'] ) . ';border-radius:8px;font-family:sans-serif;display:flex;align-items:center;gap:8px;">';
             echo '<span style="font-size:20px;">&#9855;</span>';
             echo '<div>';
@@ -334,8 +338,8 @@ class Fpvsi_A11y_Elementor_Widget extends \Elementor\Widget_Base {
             echo '<p style="margin:0;color:#888;font-size:11px;">Se aplica a todo el sitio. Config se guarda al publicar.</p>';
             echo '</div>';
             echo '</div>';
-            // Destroy + re-init para live preview
-            echo '<script>(function(){if(typeof FpvsiA11yWidget!=="undefined"){FpvsiA11yWidget.destroy();FpvsiA11yWidget.init(' . $json . ');}})();</script>';
+            // Config como data-attribute — editor-handler.js se encarga de init/destroy
+            echo '<div data-fpvsi-config="' . esc_attr( $json ) . '" style="display:none;"></div>';
         }
 
         // Frontend: no renderizar nada — wp_footer se encarga

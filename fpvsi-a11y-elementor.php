@@ -3,7 +3,7 @@
  * Plugin Name: FPVSI Accessibility Widget for Elementor
  * Plugin URI:  https://github.com/SIG-DEV-GBA/fpvsi-a11y-elementor
  * Description: Widget de accesibilidad para Elementor. Arrastra, configura y se aplica a todo el sitio.
- * Version:     1.2.0
+ * Version:     1.3.0
  * Author:      SIG-DEV-GBA
  * Author URI:  https://github.com/SIG-DEV-GBA
  * License:     MIT
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'FPVSI_A11Y_EL_VERSION', '1.2.0' );
+define( 'FPVSI_A11Y_EL_VERSION', '1.3.0' );
 define( 'FPVSI_A11Y_EL_DIR', plugin_dir_path( __FILE__ ) );
 define( 'FPVSI_A11Y_EL_URL', plugin_dir_url( __FILE__ ) );
 
@@ -56,6 +56,19 @@ add_action( 'wp_enqueue_scripts', function () {
         'fpvsi-a11y-el',
         FPVSI_A11Y_EL_URL . 'assets/js/widget.js',
         [],
+        FPVSI_A11Y_EL_VERSION,
+        true
+    );
+});
+
+/**
+ * Registrar script del handler para el editor de Elementor
+ */
+add_action( 'elementor/frontend/after_register_scripts', function () {
+    wp_register_script(
+        'fpvsi-a11y-el-handler',
+        FPVSI_A11Y_EL_URL . 'assets/js/editor-handler.js',
+        [ 'elementor-frontend', 'fpvsi-a11y-el' ],
         FPVSI_A11Y_EL_VERSION,
         true
     );

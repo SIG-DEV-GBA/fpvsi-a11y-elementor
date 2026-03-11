@@ -4,7 +4,7 @@ Tags: accessibility, elementor, a11y, tts, widget
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: MIT
 
 Widget de accesibilidad para Elementor. Arrastra, configura y se aplica a todo el sitio.
@@ -31,9 +31,15 @@ Al publicar la página, la configuración se aplica a TODO el sitio automáticam
 
 == Changelog ==
 
+= 1.3.0 =
+* Fix: live preview real en Elementor via editor-handler.js (onInit/onDestroy)
+* Fix: al borrar widget del editor se elimina el FAB flotante
+* Fix: color fondo activo ahora es sólido (no 6% opacity invisible)
+* Fix: color texto solo aplica a filas activas (no a todo el panel)
+* Nuevas CSS vars: --a11y-active-bg, --a11y-active-bg-rgb, --a11y-text
+
 = 1.2.0 =
-* Nuevos controles: "Color texto activo" y "Color fondo hover/activo" para mejor legibilidad
-* CSS vars --a11y-text y --a11y-hover-bg parametrizables desde Elementor
+* Controles "Fondo filas activas" y "Texto filas activas" para legibilidad
 
 = 1.1.0 =
 * Live preview en el editor de Elementor (destroy + re-init al cambiar parámetros)
