@@ -145,6 +145,9 @@
 /* ── Panel ── */
 .fpvsi-a11y__panel {
   width: 300px;
+  max-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 25px 60px -12px rgba(var(--a11y-primary-rgb), 0.25);
@@ -163,6 +166,7 @@
   padding: 16px 20px;
   background: linear-gradient(to right, var(--a11y-primary), var(--a11y-primary-dark), var(--a11y-primary-darker));
   overflow: hidden;
+  flex-shrink: 0;
 }
 .fpvsi-a11y__header-glow {
   position: absolute;
@@ -248,7 +252,8 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  max-height: 60vh;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
 }
 
@@ -641,6 +646,7 @@
 .fpvsi-a11y__footer {
   padding: 10px 16px;
   border-top: 1px solid rgba(243,244,246,0.8);
+  flex-shrink: 0;
 }
 .fpvsi-a11y__footer-text {
   font-size: 10px;
