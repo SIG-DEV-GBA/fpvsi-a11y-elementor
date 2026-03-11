@@ -953,7 +953,20 @@
   }
 
   /* ══════════════════════════════════════════════
+     Destroy (remove DOM + cleanup)
+     ══════════════════════════════════════════════ */
+  function destroy() {
+    var existing = document.querySelector('.fpvsi-a11y');
+    if (existing) existing.remove();
+    // Reset CSS vars
+    var r = document.documentElement;
+    ['--a11y-primary','--a11y-primary-dark','--a11y-primary-darker','--a11y-primary-light','--a11y-accent','--a11y-primary-rgb','--a11y-accent-rgb'].forEach(function(v){
+      r.style.removeProperty(v);
+    });
+  }
+
+  /* ══════════════════════════════════════════════
      Expose
      ══════════════════════════════════════════════ */
-  window.FpvsiA11yWidget = { init: init };
+  window.FpvsiA11yWidget = { init: init, destroy: destroy };
 })();

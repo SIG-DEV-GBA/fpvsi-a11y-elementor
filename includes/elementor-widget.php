@@ -295,19 +295,37 @@ class Fpvsi_A11y_Elementor_Widget extends \Elementor\Widget_Base {
 
     protected function render() {
         $config = $this->build_config();
+        $is_editor = \Elementor\Plugin::$instance->editor->is_edit_mode();
 
-        // Siempre guardar config en wp_options (editor y frontend)
-        update_option( 'fpvsi_a11y_elementor_config', $config, false );
-
-        // En el editor: placeholder visual
-        if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-            echo '<div style="padding:20px;background:#f0f0f0;border:2px dashed ' . esc_attr( $config['colors']['primary'] ) . ';border-radius:8px;text-align:center;font-family:sans-serif;">';
-            echo '<p style="margin:0 0 4px;font-weight:600;color:' . esc_attr( $config['colors']['primary'] ) . ';">&#9855; Accessibility Widget</p>';
-            echo '<p style="margin:0;color:#666;font-size:13px;">Config guardada. El widget flotante aparece en todo el sitio.</p>';
-            echo '</div>';
-            return;
+        // Guardar config solo en frontend (no en cada preview del editor)
+        if ( ! $is_editor ) {
+            update_option( 'fpvsi_a11y_elementor_config', $config, false );
         }
 
-        // Frontend: no renderizar nada aquí — wp_footer se encarga del init global
+        $json = wp_json_encode( $config, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+
+        if ( $is_editor ) {
+            // Editor: indicador visual + init real para preview en vivo
+            echo '<div style="padding:12px 16px;background:#f9f5ff;border:2px solid ' . esc_attr( $config['colors']['primary'] ) . ';border-radius:8px;font-family:sans-serif;display:flex;align-items:center;gap:8px;">';
+            echo '<span style="font-size:20px;">&#9855;</span>';
+            echo '<div>';
+            echo '<p style="margin:0;font-weight:600;color:' . esc_attr( $config['colors']['primary'] ) . ';font-size:13px;">Accessibility Widget</p>';
+            echo '<p style="margin:0;color:#888;font-size:11px;">Se aplica a todo el sitio. Config se guarda al publicar.</p>';
+            echo '</div>';
+            echo '</div>';
+            // Destroy + re-init para live preview
+            echo '<script>(function(){if(typeof FpvsiA11yWidget!=="undefined"){FpvsiA11yWidget.destroy();FpvsiA11yWidget.init(' . $json . ');}})();</script>';
+        }
+
+        // Frontend: no renderizar nada — wp_footer se encarga
+    }
+
+    /**
+     * Guardar config en wp_options cuando Elementor guarda la página (save/publish)
+     */
+    public function on_save( $data ) {
+        $config = $this->build_config();
+        update_option( 'fpvsi_a11y_elementor_config', $config, false );
+        return $data;
     }
 }

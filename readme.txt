@@ -4,7 +4,7 @@ Tags: accessibility, elementor, a11y, tts, widget
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: MIT
 
 Widget de accesibilidad para Elementor. Arrastra, configura y se aplica a todo el sitio.
@@ -30,6 +30,11 @@ Al publicar la página, la configuración se aplica a TODO el sitio automáticam
 5. Configura y publica
 
 == Changelog ==
+
+= 1.1.0 =
+* Live preview en el editor de Elementor (destroy + re-init al cambiar parámetros)
+* Config se persiste en wp_options al guardar/publicar via elementor/document/after_save
+* Método destroy() añadido a widget.js
 
 = 1.0.0 =
 * Versión inicial
