@@ -4,7 +4,7 @@ Tags: accessibility, elementor, a11y, tts, widget
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: MIT
 
 Widget de accesibilidad para Elementor. Arrastra, configura y se aplica a todo el sitio.
@@ -30,6 +30,10 @@ Al publicar la página, la configuración se aplica a TODO el sitio automáticam
 5. Configura y publica
 
 == Changelog ==
+
+= 1.2.0 =
+* Nuevos controles: "Color texto activo" y "Color fondo hover/activo" para mejor legibilidad
+* CSS vars --a11y-text y --a11y-hover-bg parametrizables desde Elementor
 
 = 1.1.0 =
 * Live preview en el editor de Elementor (destroy + re-init al cambiar parámetros)

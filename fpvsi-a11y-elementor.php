@@ -3,7 +3,7 @@
  * Plugin Name: FPVSI Accessibility Widget for Elementor
  * Plugin URI:  https://github.com/SIG-DEV-GBA/fpvsi-a11y-elementor
  * Description: Widget de accesibilidad para Elementor. Arrastra, configura y se aplica a todo el sitio.
- * Version:     1.1.0
+ * Version:     1.2.0
  * Author:      SIG-DEV-GBA
  * Author URI:  https://github.com/SIG-DEV-GBA
  * License:     MIT
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'FPVSI_A11Y_EL_VERSION', '1.1.0' );
+define( 'FPVSI_A11Y_EL_VERSION', '1.2.0' );
 define( 'FPVSI_A11Y_EL_DIR', plugin_dir_path( __FILE__ ) );
 define( 'FPVSI_A11Y_EL_URL', plugin_dir_url( __FILE__ ) );
 
@@ -101,11 +101,18 @@ function fpvsi_a11y_el_extract_config( $elements ) {
     foreach ( $elements as $element ) {
         if ( ! empty( $element['widgetType'] ) && $element['widgetType'] === 'fpvsi-a11y-widget' ) {
             $s = $element['settings'];
+            $colors = [
+                'primary' => ! empty( $s['primary_color'] ) ? $s['primary_color'] : '#A10D5E',
+                'accent'  => ! empty( $s['accent_color'] )  ? $s['accent_color']  : '#F29429',
+            ];
+            if ( ! empty( $s['text_color'] ) ) {
+                $colors['text'] = $s['text_color'];
+            }
+            if ( ! empty( $s['hover_bg_color'] ) ) {
+                $colors['hoverBg'] = $s['hover_bg_color'];
+            }
             $config = [
-                'colors'     => [
-                    'primary' => ! empty( $s['primary_color'] ) ? $s['primary_color'] : '#A10D5E',
-                    'accent'  => ! empty( $s['accent_color'] )  ? $s['accent_color']  : '#F29429',
-                ],
+                'colors'     => $colors,
                 'position'   => ! empty( $s['position'] ) ? $s['position'] : 'bottom-left',
                 'offsetX'    => ! empty( $s['offset_x']['size'] ) ? (int) $s['offset_x']['size'] : 20,
                 'offsetY'    => ! empty( $s['offset_y']['size'] ) ? (int) $s['offset_y']['size'] : 20,

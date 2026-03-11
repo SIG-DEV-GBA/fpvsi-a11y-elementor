@@ -50,6 +50,20 @@ class Fpvsi_A11y_Elementor_Widget extends \Elementor\Widget_Base {
             'default' => '#F29429',
         ]);
 
+        $this->add_control( 'text_color', [
+            'label'       => 'Color texto activo',
+            'type'        => \Elementor\Controls_Manager::COLOR,
+            'default'     => '',
+            'description' => 'Color del texto cuando una opción está activa. Si está vacío, usa el color primario.',
+        ]);
+
+        $this->add_control( 'hover_bg_color', [
+            'label'       => 'Color fondo hover/activo',
+            'type'        => \Elementor\Controls_Manager::COLOR,
+            'default'     => '',
+            'description' => 'Color de fondo para filas activas. Si está vacío, usa el color primario.',
+        ]);
+
         $this->add_control( 'position', [
             'label'   => 'Posición',
             'type'    => \Elementor\Controls_Manager::SELECT,
@@ -212,11 +226,18 @@ class Fpvsi_A11y_Elementor_Widget extends \Elementor\Widget_Base {
     private function build_config() {
         $s = $this->get_settings_for_display();
 
+        $colors = [
+            'primary' => ! empty( $s['primary_color'] ) ? $s['primary_color'] : '#A10D5E',
+            'accent'  => ! empty( $s['accent_color'] )  ? $s['accent_color']  : '#F29429',
+        ];
+        if ( ! empty( $s['text_color'] ) ) {
+            $colors['text'] = $s['text_color'];
+        }
+        if ( ! empty( $s['hover_bg_color'] ) ) {
+            $colors['hoverBg'] = $s['hover_bg_color'];
+        }
         $config = [
-            'colors'     => [
-                'primary' => ! empty( $s['primary_color'] ) ? $s['primary_color'] : '#A10D5E',
-                'accent'  => ! empty( $s['accent_color'] )  ? $s['accent_color']  : '#F29429',
-            ],
+            'colors'     => $colors,
             'position'   => ! empty( $s['position'] ) ? $s['position'] : 'bottom-left',
             'offsetX'    => ! empty( $s['offset_x']['size'] ) ? (int) $s['offset_x']['size'] : 20,
             'offsetY'    => ! empty( $s['offset_y']['size'] ) ? (int) $s['offset_y']['size'] : 20,
